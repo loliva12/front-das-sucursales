@@ -1,6 +1,38 @@
 <div class="container mt-4">
-    <h2>Seleccione País, Provincia y Localidad</h2>
-    <form class="row mb-4">
+    <!-- Menú de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Sucursales</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Servicios</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contacto</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  
+    <!-- Título principal -->
+    <div class="text-center mb-5">
+      <h1 class="display-4">Encuentra la Sucursal Más Cercana</h1>
+      <p class="lead">Seleccione los filtros para ubicar nuestras sucursales en Argentina</p>
+    </div>
+  
+    <!-- Formulario de selección de país, provincia y localidad -->
+    <form class="row mb-5 p-4 bg-light rounded shadow-sm">
       <div class="col-md-4 mb-3">
         <label for="pais" class="form-label">País</label>
         <select [(ngModel)]="selectedPais" name="pais" class="form-control" (change)="onPaisChange()">
@@ -25,17 +57,17 @@
         </select>
       </div>
   
-      <div class="col-md-12">
-        <button type="button" class="btn btn-primary mt-3" (click)="buscarSucursales()">Buscar</button>
+      <div class="col-md-12 text-center">
+        <button type="button" class="btn btn-primary mt-3 px-4" (click)="buscarSucursales()">Buscar</button>
       </div>
     </form>
   
     <!-- Mostrar la tabla solo si showTable es true -->
-    <div *ngIf="showTable">
+    <div *ngIf="showTable" class="table-responsive mt-4">
       <div *ngIf="filteredSucursales.length > 0">
-        <h3>Lista de Sucursales en Argentina</h3>
-        <table class="table table-striped">
-          <thead>
+        <h3 class="text-center mb-4">Lista de Sucursales en Argentina</h3>
+        <table class="table table-hover table-striped shadow-sm rounded">
+          <thead class="table-primary">
             <tr>
               <th>#</th>
               <th>Calle</th>
@@ -70,7 +102,7 @@
         </table>
       </div>
   
-      <div *ngIf="filteredSucursales.length === 0 && selectedPais === 'Argentina'">
+      <div *ngIf="filteredSucursales.length === 0 && selectedPais === 'Argentina'" class="alert alert-warning text-center mt-4">
         <p>No se encontraron sucursales para los filtros seleccionados.</p>
       </div>
     </div>
