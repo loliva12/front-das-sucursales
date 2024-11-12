@@ -1,0 +1,47 @@
+
+.navbar .navbar-brand h2 {
+  color: #ffffff; /* Blanco para el título */
+}
+
+.navbar .nav-link {
+  color: #ffffff !important; /* Blanco para el texto del filtro */
+}
+
+/* Estilos para las tarjetas de productos */
+.card {
+  border: none; /* Quita el borde de la tarjeta */
+  border-radius: 10px; /* Bordes redondeados para la tarjeta */
+}
+
+.card-img-top {
+  border-radius: 10px 10px 0 0; /* Bordes redondeados solo en la parte superior de la imagen */
+  height: 200px; /* Altura fija */
+  object-fit: cover; /* Ajuste de la imagen */
+}
+
+/* Estilos de texto dentro de la tarjeta */
+.card-title {
+  color: #007bff; /* Azul primario para el título */
+}
+
+.card-text {
+  color: #6c757d; /* Gris para la descripción */
+}
+
+.h5 {
+  color: #343a40; /* Color oscuro para el precio */
+}
+
+.text-muted {
+  color: #6c757d !important; /* Gris suave para el vendedor */
+}
+
+/* Estilos adicionales */
+.dropdown-item:hover {
+  background-color: #f0f0f0; /* Color de fondo al pasar el cursor sobre los elementos del menú */
+}
+#productFilter {
+  background-color: #f0f8ff !important; /* Color de fondo personalizado */
+  color: #333 !important; /* Color del texto */
+}
+

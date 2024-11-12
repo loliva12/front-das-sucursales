@@ -13,4 +13,3 @@ export interface Sucursal {
     tipos_servicios: string;
     productos: string;
   }
-  
