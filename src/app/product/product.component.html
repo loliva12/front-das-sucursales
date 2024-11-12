@@ -1,0 +1,53 @@
+<!-- Header con título -->
+<nav class="navbar navbar-expand-lg navbar-light bg-primary mb-4 p-3">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <label for="productFilter" class="text-white me-3">
+            Filtrar por tipo de producto:
+          </label>
+
+          <!-- Select para filtrar productos -->
+          <select
+            id="productFilter"
+            class="form-select bg-light text-dark"
+            [(ngModel)]="selected"
+            (change)="onFilterChange()"
+          >
+            <option *ngFor="let type of productTypes" [value]="type.id">{{ type.label }}</option>
+          </select>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Lista de productos -->
+<div class="container mt-4">
+  <div class="row">
+    <!-- Usamos *ngFor para iterar sobre los productos filtrados -->
+    <div *ngFor="let product of filteredProducts" class="col-6 col-md-3 mb-4">
+      <div class="card shadow-sm border-0">
+        <img
+          [src]="product.imageUrl"
+          alt="{{ product.name }}"
+          class="card-img-top"
+          style="height: 200px; object-fit: cover; border-radius: 10px 10px 0 0;"
+        />
+        <div class="card-body">
+          <h5 class="card-title text-primary">{{ product.name }}</h5>
+          <p class="card-text text-secondary">{{ product.description }}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <p class="h5 text-dark">{{ product.price | currency }}</p>
+          </div>
+          <p class="card-text mt-2">
+            <small class="text-muted">{{ product.seller }}</small>
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
