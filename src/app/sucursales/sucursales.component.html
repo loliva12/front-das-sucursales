@@ -6,8 +6,17 @@
     <p class="lead">Seleccione los filtros para ubicar nuestras sucursales en Argentina</p>
   </div>
 
-  <!-- Formulario de selección de país, provincia y localidad -->
+  <!-- Formulario de selección de país, provincia, localidad y supermercado -->
+
   <form class="row mb-5 p-4 bg-light rounded shadow-sm">
+    <div class="col-md-4 mb-3">
+      <label for="supermercado" class="form-label">Supermercado</label>
+      <select [(ngModel)]="selectedSupermercado" name="supermercado" class="form-control" (change)="onSupermercadoChange()">
+        <option value="">-- Seleccionar --</option>
+        <option *ngFor="let supermercado of supermercados" [value]="supermercado">{{ supermercado }}</option>
+      </select>
+    </div>
+
     <div class="col-md-4 mb-3">
       <label for="pais" class="form-label">País</label>
       <select [(ngModel)]="selectedPais" name="pais" class="form-control" (change)="onPaisChange()">

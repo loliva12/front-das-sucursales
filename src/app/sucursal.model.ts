@@ -12,4 +12,5 @@ export interface Sucursal {
     horarios: string;
     tipos_servicios: string;
     productos: string;
+    supermercado: string;
   }
