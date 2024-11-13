@@ -2,14 +2,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SucursalesService } from '../sucursales.service';
 import { Sucursal } from '../sucursal.model';
 import {RouterLink} from '@angular/router';
+import {SucursalesResourceService} from '../main/api/resources/sucursales-resource.service';
+import {SucursalesService} from '../main/api/resources/sucursales-service.service';
 
 @Component({
   selector: 'app-sucursales',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
+  providers: [
+    SucursalesResourceService,
+    SucursalesService
+  ],
   templateUrl: './sucursales.component.html',
   styleUrls: ['./sucursales.component.css'],
 })
@@ -17,10 +22,10 @@ export class SucursalesComponent implements OnInit {
   sucursales: Sucursal[] = [];
   filteredSucursales: Sucursal[] = [];
 
-  paises: string[] = [];
-  provincias: string[] = [];
-  localidades: string[] = [];
-  supermercados: string[] = [];
+  paises: any[] = [];
+  provincias: any[] = [];
+  localidades: any[] = [];
+  supermercados: any[] = [];
 
   selectedPais: string = '';
   selectedProvincia: string = '';
@@ -28,12 +33,28 @@ export class SucursalesComponent implements OnInit {
   selectedSupermercado: string = '';
   showTable: boolean = false;  // Variable para controlar si mostrar la tabla
 
-  constructor(private sucursalesService: SucursalesService) {}
+  constructor(private sucursalesResourceService: SucursalesService) {}
 
   ngOnInit(): void {
-    this.sucursales = this.sucursalesService.getSucursales();
-    this.paises = this.sucursalesService.getPaises();
-    this.supermercados = this.sucursalesService.getSupermercados();
+
+    this.sucursalesResourceService.getPaises().subscribe((paises:any)=>{
+      console.log(paises);
+      this.paises = paises;
+    })
+    this.sucursalesResourceService.getSucursales("AR",2,1).subscribe((sucursales:any) => {
+      this.sucursales = sucursales;
+      this.showTable = true;
+    })
+
+
+    //this.sucursales = this.sucursalesService.getSucursales();
+   /* this.sucursalesResourceService.getPaises().subscribe(paises =>
+    {
+      this.paises = paises;
+    });
+
+    */
+    //this.supermercados = this.sucursalesService.getSupermercados();
     this.filteredSucursales = [...this.sucursales];
   }
 
@@ -59,7 +80,9 @@ export class SucursalesComponent implements OnInit {
 
   onPaisChange(): void {
     if (this.selectedPais === 'Argentina') {
-      this.provincias = this.sucursalesService.getProvincias();
+      /*this.sucursalesResourceService.getProvincias(this.selectedPais).subscribe((provincias) => {
+        this.provincias = provincias;
+      });*/
     } else {
       this.provincias = [];
     }
@@ -69,9 +92,18 @@ export class SucursalesComponent implements OnInit {
     this.filteredSucursales = [];
   }
 
+
   onProvinciaChange(): void {
-    this.localidades = this.sucursalesService.getLocalidades(this.selectedProvincia);
-    this.selectedLocalidad = '';
+    if (this.selectedProvincia) {
+     /* this.sucursalesResourceService.getLocalidades(this.selectedProvincia).subscribe((localidades) => {
+        this.localidades = localidades;
+        this.selectedLocalidad = '';
+        this.sucursales = [];
+        this.showTable = false;
+      });*/
+    } else {
+      this.localidades = [];
+    }
   }
 
   buscarSucursales(): void {
@@ -81,6 +113,6 @@ export class SucursalesComponent implements OnInit {
         (!this.selectedProvincia || sucursal.nomProvincia === this.selectedProvincia) &&
         (!this.selectedLocalidad || sucursal.nomLocalidad === this.selectedLocalidad)
     );
-    this.showTable = true; // Hacer visible la tabla al hacer clic en "Buscar"
+    this.showTable = this.filteredSucursales.length > 0;
   }
 }

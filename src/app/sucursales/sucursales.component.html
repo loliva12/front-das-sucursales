@@ -19,7 +19,7 @@
 
     <div class="col-md-4 mb-3">
       <label for="pais" class="form-label">País</label>
-      <select [(ngModel)]="selectedPais" name="pais" class="form-control" (change)="onPaisChange()">
+      <select [(ngModel)]="selectedPais" id="pais" name="pais" class="form-control" (change)="onPaisChange()">
         <option value="">-- Seleccionar --</option>
         <option *ngFor="let pais of paises" [value]="pais">{{ pais }}</option>
       </select>
@@ -27,7 +27,7 @@
 
     <div class="col-md-4 mb-3" *ngIf="selectedPais === 'Argentina'">
       <label for="provincia" class="form-label">Provincia</label>
-      <select [(ngModel)]="selectedProvincia" name="provincia" class="form-control" (change)="onProvinciaChange()">
+      <select [(ngModel)]="selectedProvincia" id="provincia" name="provincia" class="form-control" (change)="onProvinciaChange()">
         <option value="">-- Seleccionar --</option>
         <option *ngFor="let provincia of provincias" [value]="provincia">{{ provincia }}</option>
       </select>
@@ -35,7 +35,7 @@
 
     <div class="col-md-4 mb-3" *ngIf="selectedProvincia">
       <label for="localidad" class="form-label">Localidad</label>
-      <select [(ngModel)]="selectedLocalidad" name="localidad" class="form-control">
+      <select [(ngModel)]="selectedLocalidad" id="localidad" name="localidad" class="form-control">
         <option value="">-- Seleccionar --</option>
         <option *ngFor="let localidad of localidades" [value]="localidad">{{ localidad }}</option>
       </select>

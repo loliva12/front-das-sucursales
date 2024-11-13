@@ -1,6 +1,9 @@
 // src/app/sucursales.service.ts
 import { Injectable } from '@angular/core';
 import { Sucursal } from './sucursal.model';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from './enviroments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +43,7 @@ export class SucursalesService {
     },
   ];
 
-  private paises: string[] = ['Argentina'];
+   private paises: string[] = ['Argentina'];
   private provincias: string[] = ['Córdoba', 'Buenos Aires', 'Santa Fe'];
   private localidades: Record<string, string[]> = {
     Córdoba: ['Córdoba Capital', 'Villa Carlos Paz', 'Río Cuarto'],
