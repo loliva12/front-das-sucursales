@@ -1,0 +1,35 @@
+<table class="table table-hover table-striped shadow-sm rounded">
+  <thead class="table-primary">
+  <tr>
+    <th>#</th>
+    <th>Calle</th>
+    <th>Nro Calle</th>
+    <th>Teléfonos</th>
+    <th>Latitud</th>
+    <th>Longitud</th>
+    <th>Habilitada</th>
+    <th>Localidad</th>
+    <th>Provincia</th>
+    <th>Horarios</th>
+    <th>Servicios</th>
+    <th>Productos</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let sucursal of sucursales">
+    <td>{{ sucursal.nroSucursal }}</td>
+    <td>{{ sucursal.calle }}</td>
+    <td>{{ sucursal.nroCalle }}</td>
+    <td>{{ sucursal.telefonos }}</td>
+    <td>{{ sucursal.coordLatitud }}</td>
+    <td>{{ sucursal.coordLongitud }}</td>
+    <td>{{ sucursal.habilitada ? 'Sí' : 'No' }}</td>
+    <td>{{ sucursal.nomLocalidad }}</td>
+    <td>{{ sucursal.nomProvincia }}</td>
+    <td>{{ sucursal.horarios }}</td>
+    <td>{{ sucursal.tipos_servicios }}</td>
+    <td>{{ sucursal.productos }}</td>
+  </tr>
+  </tbody>
+</table>
+

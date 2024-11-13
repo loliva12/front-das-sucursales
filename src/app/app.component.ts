@@ -2,9 +2,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SucursalesComponent } from './sucursales/sucursales.component';
-import {SidebarComponent} from './shared/sidebar/sidebar.component';
-import { HeaderComponent } from './shared/header/header.component';
-import { FooterComponent } from './shared/footer/footer.component';
+import {SidebarComponent} from './compartido/sidebar/sidebar.component';
+import { HeaderComponent } from './compartido/header/header.component';
+import { FooterComponent } from './compartido/footer/footer.component';
 
 @Component({
   selector: 'app-root',

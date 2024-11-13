@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Dashboard",
+    "icon": "fas fa-tachometer-alt",
+    "link": "/dashboard"
+  },
+  {
+    "title": "Opción 1",
+    "icon": "fas fa-th",
+    "link": "/opcion1"
+  }
+]

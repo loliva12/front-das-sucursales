@@ -1,0 +1,30 @@
+[
+  {
+    "nroSucursal": 1,
+    "calle": "Av. Siempreviva",
+    "nroCalle": 742,
+    "telefonos": "123-456",
+    "coordLatitud": -31.4,
+    "coordLongitud": -64.2,
+    "habilitada": true,
+    "nomLocalidad": "Córdoba",
+    "nomProvincia": "Córdoba",
+    "horarios": "9:00 a 18:00",
+    "tipos_servicios": "Caja",
+    "productos": "Alimentos"
+  },
+  {
+    "nroSucursal": 2,
+    "calle": "Calle Falsa",
+    "nroCalle": 123,
+    "telefonos": "789-012",
+    "coordLatitud": -32.5,
+    "coordLongitud": -65.1,
+    "habilitada": true,
+    "nomLocalidad": "Villa María",
+    "nomProvincia": "Córdoba",
+    "horarios": "10:00 a 20:00",
+    "tipos_servicios": "Cobros",
+    "productos": "Electrodomésticos"
+  }
+]

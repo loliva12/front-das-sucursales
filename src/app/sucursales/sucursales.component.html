@@ -1,110 +1,25 @@
-<div class="container mt-4">
-    <!-- Menú de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Sucursales</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Servicios</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Productos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contacto</a>
-            </li>
-          </ul>
-        </div>
+<div class="content-wrapper">
+  <router-outlet></router-outlet>
+  <section class="content">
+    <div class="container-fluid">
+      <!-- Componente de filtros -->
+      <app-filtros
+        [paises]="paises"
+        [provincias]="provincias"
+        [localidades]="localidades"
+        (onBuscar)="buscarSucursales($event)">
+      </app-filtros>
+
+      <!-- Tabla de sucursales -->
+      <div *ngIf="showTable">
+        <h3 class="text-center mb-4">Sucursales Filtradas</h3>
+        <app-tabla-sucursales [sucursales]="filteredSucursales"></app-tabla-sucursales>
       </div>
-    </nav>
-  
-    <!-- Título principal -->
-    <div class="text-center mb-5">
-      <h1 class="display-4">Encuentra la Sucursal Más Cercana</h1>
-      <p class="lead">Seleccione los filtros para ubicar nuestras sucursales en Argentina</p>
-    </div>
-  
-    <!-- Formulario de selección de país, provincia y localidad -->
-    <form class="row mb-5 p-4 bg-light rounded shadow-sm">
-      <div class="col-md-4 mb-3">
-        <label for="pais" class="form-label">País</label>
-        <select [(ngModel)]="selectedPais" name="pais" class="form-control" (change)="onPaisChange()">
-          <option value="">-- Seleccionar --</option>
-          <option *ngFor="let pais of paises" [value]="pais">{{ pais }}</option>
-        </select>
-      </div>
-  
-      <div class="col-md-4 mb-3" *ngIf="selectedPais === 'Argentina'">
-        <label for="provincia" class="form-label">Provincia</label>
-        <select [(ngModel)]="selectedProvincia" name="provincia" class="form-control" (change)="onProvinciaChange()">
-          <option value="">-- Seleccionar --</option>
-          <option *ngFor="let provincia of provincias" [value]="provincia">{{ provincia }}</option>
-        </select>
-      </div>
-  
-      <div class="col-md-4 mb-3" *ngIf="selectedProvincia">
-        <label for="localidad" class="form-label">Localidad</label>
-        <select [(ngModel)]="selectedLocalidad" name="localidad" class="form-control">
-          <option value="">-- Seleccionar --</option>
-          <option *ngFor="let localidad of localidades" [value]="localidad">{{ localidad }}</option>
-        </select>
-      </div>
-  
-      <div class="col-md-12 text-center">
-        <button type="button" class="btn btn-primary mt-3 px-4" (click)="buscarSucursales()">Buscar</button>
-      </div>
-    </form>
-  
-    <!-- Mostrar la tabla solo si showTable es true -->
-    <div *ngIf="showTable" class="table-responsive mt-4">
-      <div *ngIf="filteredSucursales.length > 0">
-        <h3 class="text-center mb-4">Lista de Sucursales en Argentina</h3>
-        <table class="table table-hover table-striped shadow-sm rounded">
-          <thead class="table-primary">
-            <tr>
-              <th>#</th>
-              <th>Calle</th>
-              <th>Nro Calle</th>
-              <th>Teléfonos</th>
-              <th>Latitud</th>
-              <th>Longitud</th>
-              <th>Habilitada</th>
-              <th>Localidad</th>
-              <th>Provincia</th>
-              <th>Horarios</th>
-              <th>Servicios</th>
-              <th>Productos</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let sucursal of filteredSucursales">
-              <td>{{ sucursal.nroSucursal }}</td>
-              <td>{{ sucursal.calle }}</td>
-              <td>{{ sucursal.nroCalle }}</td>
-              <td>{{ sucursal.telefonos }}</td>
-              <td>{{ sucursal.coordLatitud }}</td>
-              <td>{{ sucursal.coordLongitud }}</td>
-              <td>{{ sucursal.habilitada ? 'Sí' : 'No' }}</td>
-              <td>{{ sucursal.nomLocalidad }}</td>
-              <td>{{ sucursal.nomProvincia }}</td>
-              <td>{{ sucursal.horarios }}</td>
-              <td>{{ sucursal.tipos_servicios }}</td>
-              <td>{{ sucursal.productos }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  
-      <div *ngIf="filteredSucursales.length === 0 && selectedPais === 'Argentina'" class="alert alert-warning text-center mt-4">
+
+      <!-- Mensaje cuando no hay sucursales -->
+      <div *ngIf="showTable && filteredSucursales.length === 0" class="alert alert-warning text-center mt-4">
         <p>No se encontraron sucursales para los filtros seleccionados.</p>
       </div>
     </div>
-  </div>
-  
+  </section>
+</div>

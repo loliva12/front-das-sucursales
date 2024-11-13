@@ -1,62 +1,40 @@
 // src/app/sucursales/sucursales.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { SucursalesService } from '../sucursales.service';
-import { Sucursal } from '../sucursal.model';
+import {SucursalService} from '../services/sucursal.service';
+import {TablaSucursalesComponent} from '../compartido/tabla-sucursales/tabla-sucursales.component';
+import {FiltrosComponent} from '../compartido/filtros/filtros.component';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-sucursales',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FiltrosComponent, TablaSucursalesComponent, RouterOutlet],
   templateUrl: './sucursales.component.html',
-  styleUrls: ['./sucursales.component.css'],
+  styleUrls: ['./sucursales.component.css']
 })
 export class SucursalesComponent implements OnInit {
-  sucursales: Sucursal[] = [];
-  filteredSucursales: Sucursal[] = [];
+  paises = ['Argentina', 'Chile', 'Uruguay'];
+  provincias = ['Buenos Aires', 'Córdoba', 'Santa Fe'];
+  localidades = ['Capital', 'Villa María', 'Rosario'];
 
-  paises: string[] = [];
-  provincias: string[] = [];
-  localidades: string[] = [];
+  filteredSucursales: any[] = [];
+  showTable = false;
 
-  selectedPais: string = '';
-  selectedProvincia: string = '';
-  selectedLocalidad: string = '';
-  showTable: boolean = false;  // Variable para controlar si mostrar la tabla
-
-  constructor(private sucursalesService: SucursalesService) {}
+  constructor(private sucursalService: SucursalService) {}
 
   ngOnInit(): void {
-    this.sucursales = this.sucursalesService.getSucursales();
-    this.paises = this.sucursalesService.getPaises();
-    this.filteredSucursales = [...this.sucursales];
+    // Al inicializar, podrías cargar datos generales si fuera necesario.
   }
 
-  onPaisChange(): void {
-    if (this.selectedPais === 'Argentina') {
-      this.provincias = this.sucursalesService.getProvincias();
-    } else {
-      this.provincias = [];
-    }
-    this.selectedProvincia = '';
-    this.localidades = [];
-    this.selectedLocalidad = '';
-    this.filteredSucursales = [];
-  }
+  buscarSucursales(filtros: { pais: string; provincia?: string; localidad?: string }) {
+    console.log('Filtros seleccionados:', filtros);
 
-  onProvinciaChange(): void {
-    this.localidades = this.sucursalesService.getLocalidades(this.selectedProvincia);
-    this.selectedLocalidad = '';
-  }
-
-  buscarSucursales(): void {
-    this.filteredSucursales = this.sucursales.filter(
-      (sucursal) =>
-        (!this.selectedPais || this.selectedPais === 'Argentina') &&
-        (!this.selectedProvincia || sucursal.nomProvincia === this.selectedProvincia) &&
-        (!this.selectedLocalidad || sucursal.nomLocalidad === this.selectedLocalidad)
-    );
-    this.showTable = true; // Hacer visible la tabla al hacer clic en "Buscar"
+    // Consumir datos desde el servicio
+    this.sucursalService.obtenerSucursales(filtros).subscribe((sucursales) => {
+      console.log(sucursales);
+     this.filteredSucursales = sucursales; 
+      this.showTable = this.filteredSucursales.length > 0;
+    });
   }
 }
