@@ -20,6 +20,7 @@ export class SucursalesService {
       horarios: '9:00 AM - 6:00 PM',
       tipos_servicios: 'Supermercado, Comestibles',
       productos: 'Fideos, Harina, Aceite',
+      supermercado: 'Supermercado B',
     },
     {
       nroSucursal: 2,
@@ -34,6 +35,8 @@ export class SucursalesService {
       horarios: '8:00 AM - 8:00 PM',
       tipos_servicios: 'Electrónica, Hogar',
       productos: 'Celulares, Televisores',
+      supermercado: 'Supermercado A',
+
     },
   ];
 
@@ -44,6 +47,7 @@ export class SucursalesService {
     BuenosAires: ['Buenos Aires', 'Mar del Plata', 'La Plata'],
     SantaFe: ['Rosario', 'Santa Fe', 'Rafaela'],
   };
+
 
   getSucursales(): Sucursal[] {
     return this.sucursales;
@@ -60,4 +64,9 @@ export class SucursalesService {
   getLocalidades(provincia: string): string[] {
     return this.localidades[provincia] || [];
   }
+
+  getSupermercados(): string[] {
+    return ['Supermercado A', 'Supermercado B', 'Supermercado C'];
+  }
+
 }

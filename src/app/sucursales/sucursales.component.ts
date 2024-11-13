@@ -20,10 +20,12 @@ export class SucursalesComponent implements OnInit {
   paises: string[] = [];
   provincias: string[] = [];
   localidades: string[] = [];
+  supermercados: string[] = [];
 
   selectedPais: string = '';
   selectedProvincia: string = '';
   selectedLocalidad: string = '';
+  selectedSupermercado: string = '';
   showTable: boolean = false;  // Variable para controlar si mostrar la tabla
 
   constructor(private sucursalesService: SucursalesService) {}
@@ -31,7 +33,28 @@ export class SucursalesComponent implements OnInit {
   ngOnInit(): void {
     this.sucursales = this.sucursalesService.getSucursales();
     this.paises = this.sucursalesService.getPaises();
+    this.supermercados = this.sucursalesService.getSupermercados();
     this.filteredSucursales = [...this.sucursales];
+  }
+
+  onSupermercadoChange(): void {
+    // Filtrar sucursales basadas en el supermercado seleccionado
+    if (this.selectedSupermercado) {
+      this.filteredSucursales = this.sucursales.filter(
+        (sucursal) => sucursal.supermercado === this.selectedSupermercado
+      );
+    } else {
+      // Si no hay supermercado seleccionado, mostrar todas las sucursales
+      this.filteredSucursales = [...this.sucursales];
+    }
+
+    // Resetear los filtros de país, provincia y localidad al cambiar de supermercado
+    this.selectedPais = '';
+    this.provincias = [];
+    this.selectedProvincia = '';
+    this.localidades = [];
+    this.selectedLocalidad = '';
+    this.showTable = false; // Ocultar la tabla hasta que se haga clic en "Buscar"
   }
 
   onPaisChange(): void {
